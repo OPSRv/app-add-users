@@ -1,9 +1,13 @@
+import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "../routes";
-import { ADD_USERS_ROUTE, LOGIN_ROUTE } from "../utils/consts";
+import { USERS, LOGIN_ROUTE } from "../utils/consts";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Context } from "../index";
 
 const AppRouter = () => {
-  const user = false;
+  const { auth } = useContext(Context);
+  const [user] = useAuthState(auth);
 
   return user ? (
     <>
@@ -11,7 +15,7 @@ const AppRouter = () => {
         {privateRoutes.map(({ path, Component }) => (
           <Route path={path} element={<Component />} exact={true} key={path} />
         ))}
-        <Route path="*" element={<Navigate to={ADD_USERS_ROUTE} replace />} />
+        <Route path="*" element={<Navigate to={USERS} replace />} />
       </Routes>
     </>
   ) : (
