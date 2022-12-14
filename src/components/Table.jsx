@@ -5,8 +5,8 @@ import { thead } from "../utils/thead";
 
 const Table = ({ sortData, users }) => {
   return (
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table className="table">
+      <thead className="thead">
         <tr>
           {thead.map((th) => (
             <th
@@ -24,10 +24,7 @@ const Table = ({ sortData, users }) => {
       <tbody>
         {users ? (
           users.map((user) => (
-            <tr
-              key={uuid()}
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-            >
+            <tr key={uuid()} className=" tbody-tr">
               <th
                 scope="row"
                 className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
