@@ -8,19 +8,33 @@ const Pagination = ({
   nextPage,
   prevPage,
   currentPage,
+  length,
 }) => {
+  console.log("🚀 ~ file: Pagination.jsx:13 ~ length", length);
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalUsers / usersPerPage); i++) {
     pageNumbers.push(i);
   }
+  let showingStart = "";
+  let showingEnd = "";
 
+  if (currentPage === 1) {
+    showingStart = 1;
+    showingEnd = usersPerPage;
+  } else if (length < usersPerPage) {
+    showingStart = currentPage * usersPerPage - usersPerPage + 1;
+    showingEnd = showingStart + length - 1;
+  } else {
+    showingStart = currentPage * usersPerPage - usersPerPage + 1;
+    showingEnd = showingStart + usersPerPage - 1;
+  }
   return (
     <nav className="nav-pagination" aria-label="Table navigation">
       <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
         Showing{" "}
         <span className="font-semibold text-gray-900 dark:text-white">
-          1-10
+          {showingStart}-{showingEnd}
         </span>{" "}
         of{" "}
         <span className="font-semibold text-gray-900 dark:text-white">

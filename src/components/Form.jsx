@@ -1,29 +1,38 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "react-phone-input-2/lib/style.css";
 import firebase from "../firebase";
 import useInput from "../hooks/useInput";
 import { upperFirstLetter } from "../utils/upperFirstLetter";
 import DatePickerWrap from "./DatePickerWrap";
-import Loader from "./Loader";
 import { collection, doc, setDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
+import uuid from "react-uuid";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Context } from "../index";
 
 const Form = ({ user, buttoneText }) => {
+  const { auth } = useContext(Context);
+  const [userProfile] = useAuthState(auth);
+
   const navigate = useNavigate();
-  const [editUser, setEditUser] = useState({
-    uid: "",
-    uuid_code: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    dateOfBirth: "",
-    phoneNumber: "",
-  });
+
+  const userObject = user
+    ? user
+    : {
+        uid: "",
+        uuid_code: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        dateOfBirth: "",
+        phoneNumber: "",
+      };
+
+  const [editUser] = useState(userObject);
+
   const [phone, setPhone] = useState(editUser.phoneNumber);
   const [startDate, setStartDate] = useState(new Date());
-  console.log(phone);
-  console.log();
   const firstName = useInput(editUser.firstName);
   const lastName = useInput(editUser.lastName);
   const email = useInput(editUser.email);
@@ -33,11 +42,13 @@ const Form = ({ user, buttoneText }) => {
 
   const usersRef = collection(db, "users");
 
+  const uuid_code = editUser.uuid_code ? editUser.uuid_code : uuid();
+
   const createUser = async () => {
     try {
-      await setDoc(doc(usersRef, editUser.uuid_code), {
-        uid: editUser.uid,
-        uuid_code: editUser.uuid_code,
+      await setDoc(doc(usersRef, uuid_code), {
+        uid: userProfile.uid,
+        uuid_code: uuid_code,
         firstName: upperFirstLetter(firstName.value.toLowerCase()),
         lastName: upperFirstLetter(lastName.value.toLowerCase()),
         email: email.value.toLowerCase(),
@@ -51,9 +62,9 @@ const Form = ({ user, buttoneText }) => {
     }
   };
 
-  if (!user) {
-    return <Loader />;
-  }
+  //   if (!user) {
+  //     return <Loader />;
+  //   }
   return (
     <div className="grid place-items-center mt-10">
       <div

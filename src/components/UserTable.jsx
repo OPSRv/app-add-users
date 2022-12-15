@@ -83,17 +83,22 @@ const UserTable = () => {
   };
 
   return (
-    <div className="overflow-x-auto relative shadow-md sm:rounded-lg w-[100%] max-w-[1000px] scroll-smooth table-wrapper">
-      <Table sortData={sortData} users={currentUser} />
-      <Pagination
-        usersPerPage={usersPerPage}
-        totalUsers={users.length}
-        paginate={paginate}
-        nextPage={nextPage}
-        prevPage={prevPage}
-        currentPage={currentPage}
-      />
-    </div>
+    <>
+      <div className="overflow-x-auto relative shadow-md sm:rounded-t-lg w-[100%] max-w-[1000px] scroll-smooth table-wrapper">
+        <Table sortData={sortData} users={currentUser} />
+      </div>
+      <div className="shadow-md sm:rounded-lg w-[100%] max-w-[1000px] scroll-smooth">
+        <Pagination
+          length={currentUser.length}
+          usersPerPage={usersPerPage}
+          totalUsers={users.length}
+          paginate={paginate}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          currentPage={currentPage}
+        />
+      </div>
+    </>
   );
 };
 

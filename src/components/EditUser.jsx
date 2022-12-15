@@ -7,10 +7,8 @@ import { useParams } from "react-router-dom";
 
 const EditUser = () => {
   let { uuid_code } = useParams();
-
   const [loading, setLoading] = useState(true);
   const [editUser, setEditUser] = useState({});
-
   const db = getFirestore(firebase);
 
   const getEditUser = async () => {
@@ -24,7 +22,6 @@ const EditUser = () => {
       console.log("No such document!");
     }
   };
-
   useEffect(() => {
     getEditUser();
   }, [uuid_code]);

@@ -18,7 +18,7 @@ const Table = ({ sortData, users }) => {
     setIsOpen(true);
   }
   return (
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-10 min-h-[528px]rounded ">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-10 rounded-t-lg ">
       <thead className="thead">
         <tr>
           {thead.map((th) => (
@@ -85,9 +85,7 @@ const Table = ({ sortData, users }) => {
             </tr>
           ))
         ) : (
-          <tr>
-            <span>таблиця руста</span>
-          </tr>
+          <tr></tr>
         )}
       </tbody>
     </table>

@@ -3,34 +3,33 @@ import { NavLink } from "react-router-dom";
 const Navigation = () => {
   let activeStyle = {
     textDecoration: "underline",
-    color: "white",
   };
 
   let noActive = {
-    color: "silver",
+    color: "rgb(17 24 39)",
   };
 
   let activeClassName = "underline";
 
   return (
-    <ul className="flex gap-4 items-center pr-4 text-white">
-      <li className="btn">
+    <div className="flex gap-4 items-center pr-4 text-white">
+      <div className="btn-navigation">
         <NavLink
           to="users"
           className={({ isActive }) => (isActive ? activeClassName : noActive)}
         >
           Users
         </NavLink>
-      </li>
-      <li className="btn">
+      </div>
+      <div className="btn-navigation">
         <NavLink
           to="add-user"
           style={({ isActive }) => (isActive ? activeStyle : noActive)}
         >
           Add user
         </NavLink>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 };
 
