@@ -5,10 +5,6 @@ import range from "lodash/range";
 import { months } from "../utils/months";
 
 const DatePickerWrap = ({ startDate, setStartDate }) => {
-  console.log(
-    "🚀 ~ file: DatePickerWrap.jsx:8 ~ DatePickerWrap ~ startDate",
-    startDate
-  );
   const years = range(1990, getYear(new Date()) + 1, 1);
 
   return (

@@ -6,6 +6,7 @@ import { ReactComponent as Edit } from "../assets/svg/edit.svg";
 import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 import { thead } from "../utils/thead";
 import Modal from "./Modal";
+import logo from "../assets/img/logo.png";
 
 const Table = ({ sortData, users }) => {
   let [isOpen, setIsOpen] = useState(false);
@@ -42,11 +43,19 @@ const Table = ({ sortData, users }) => {
                 scope="row"
                 className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
               >
-                <img
-                  className="w-10 h-10 rounded-full"
-                  src="https://randomuser.me/api/portraits/men/4.jpg"
-                  alt="Jeseimage"
-                />
+                {user.avatar ? (
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={`${user.avatar.img}`}
+                    alt="Jeseimage"
+                  />
+                ) : (
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={`${logo}`}
+                    alt="Jeseimage"
+                  />
+                )}
                 <div className="pl-3">
                   <div className="text-base font-semibold">
                     {user.firstName} {user.lastName}
