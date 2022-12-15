@@ -19,7 +19,7 @@ const UserMenu = ({ user }) => {
                 className="rounded-full w-[32px] h-[32px]"
               />{" "}
               <span className="ml-2 hover:opacity-90 text-base font-light whitespace-nowrap">
-                <span className="text-violet-600 font-bold">
+                <span className="text-white font-bold leading-10">
                   {user.displayName}
                 </span>
               </span>

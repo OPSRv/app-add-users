@@ -10,7 +10,6 @@ const Pagination = ({
   currentPage,
   length,
 }) => {
-  console.log("🚀 ~ file: Pagination.jsx:13 ~ length", length);
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalUsers / usersPerPage); i++) {
@@ -21,7 +20,7 @@ const Pagination = ({
 
   if (currentPage === 1) {
     showingStart = 1;
-    showingEnd = usersPerPage;
+    showingEnd = length;
   } else if (length < usersPerPage) {
     showingStart = currentPage * usersPerPage - usersPerPage + 1;
     showingEnd = showingStart + length - 1;
