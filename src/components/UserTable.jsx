@@ -10,7 +10,7 @@ const UserTable = () => {
   const [isSorted, setIsSorted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(5);
+  const [usersPerPage] = useState(15);
 
   const db = getFirestore(firebase);
   const q = query(collection(db, "users")); // where("capital", "==", true)
@@ -84,10 +84,10 @@ const UserTable = () => {
 
   return (
     <>
-      <div className="overflow-x-auto relative shadow-md sm:rounded-t-lg w-[100%] max-w-[1000px] scroll-smooth table-wrapper">
+      <div className="overflow-x-auto overflow-y-auto relative shadow-md sm:rounded-t-lg w-[100%] max-w-7xl scroll-smooth table-wrapper px-0 lg:px-5">
         <Table sortData={sortData} users={currentUser} />
       </div>
-      <div className="shadow-md sm:rounded-lg w-[100%] max-w-[1000px] scroll-smooth">
+      <div className="shadow-md sm:rounded-lg w-[100%] max-w-7xl scroll-smooth fixed bottom-0 px-0 lg:px-5">
         <Pagination
           length={currentUser.length}
           usersPerPage={usersPerPage}

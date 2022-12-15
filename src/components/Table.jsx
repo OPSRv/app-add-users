@@ -18,13 +18,13 @@ const Table = ({ sortData, users }) => {
     setIsOpen(true);
   }
   return (
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-10 rounded-t-lg ">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-1 rounded-lg relative ">
       <thead className="thead">
         <tr>
           {thead.map((th) => (
             <th
               scope="col"
-              className="py-3 px-6 cursor-pointer hover:bg-gray-600"
+              className="py-3 px-6 cursor-pointer hover:bg-gray-600 whitespace-nowrap"
               key={th.id}
               onClick={() => sortData(th.id, th.type)}
             >
@@ -60,7 +60,7 @@ const Table = ({ sortData, users }) => {
                   {formatPhoneNumber(user.phoneNumber)}
                 </div>
               </td>
-              <td className="py-4 px-6">
+              <td className="py-4 px-6 whitespace-nowrap">
                 <Moment format="DD/MM/YYYY" unix>
                   {user.dateOfBirth.seconds}
                 </Moment>

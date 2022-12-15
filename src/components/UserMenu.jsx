@@ -8,8 +8,8 @@ const UserMenu = ({ user }) => {
   const { auth } = useContext(Context);
 
   return (
-    <div className="">
-      <Menu as="div" className="menu">
+    <div className="z-50">
+      <Menu as="div" className="menu z-50">
         <div>
           <Menu.Button className="menu-btn">
             <div className="flex items-center">
@@ -18,8 +18,7 @@ const UserMenu = ({ user }) => {
                 alt={user.displayName}
                 className="rounded-full w-[32px] h-[32px]"
               />{" "}
-              <span className="ml-4 hover:opacity-90 text-base font-light">
-                Hello,{" "}
+              <span className="ml-2 hover:opacity-90 text-base font-light whitespace-nowrap">
                 <span className="text-violet-600 font-bold">
                   {user.displayName}
                 </span>
@@ -47,7 +46,8 @@ const UserMenu = ({ user }) => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <LogOut />
-                    Log out
+
+                    <span className="ml-2">Log out</span>
                   </button>
                 )}
               </Menu.Item>
