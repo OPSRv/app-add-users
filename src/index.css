@@ -3,15 +3,192 @@
 @tailwind utilities;
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #111827;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* width */
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: rgb(107 114 128);
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: rgb(139 92 246);
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(76 29 149);
+}
+.btn-navigation > a {
+  @apply inline-flex justify-center rounded-md border border-transparent bg-violet-900 px-4 py-2 text-sm font-medium text-white hover:bg-violet-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2;
+}
+
+@layer base {
+  html {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+  }
+}
+
+.input-add-user {
+  @apply col-span-6 sm:col-span-3;
+}
+
+.user-wrapper {
+  @apply overflow-x-auto relative shadow-md sm:rounded-lg w-[100%] max-w-[1000px] scroll-smooth;
+}
+.btn-login {
+  @apply inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-violet-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-900 focus-visible:ring-offset-2;
+}
+.pagination_number {
+  @apply py-2.5 rounded px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white;
+}
+.input-add-form {
+  @apply shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+}
+.btn {
+  @apply rounded-md bg-white bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 
+  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 select-none;
+}
+.btn:active {
+  transform: scale(0.95);
+}
+
+.label-form-add {
+  @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
+}
+
+.nav {
+  @apply bg-white  px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 border-b-2 border-violet-900;
+}
+
+.nav-pagination {
+  @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700  p-5 w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-b-lg flex justify-between items-center;
+}
+
+.pagination-right {
+  @apply cursor-pointer block py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white;
+}
+
+.pagination-left {
+  @apply cursor-pointer block py-1.5 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white;
+}
+
+.menu {
+  @apply relative inline-block text-left font-mono;
+}
+
+.menu-btn {
+  @apply inline-flex w-full justify-center rounded-md text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75;
+}
+
+.menu-items {
+  @apply absolute right-0 mt-3 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
+}
+
+.thead {
+  @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
+}
+.tbody-tr {
+  @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600;
+  min-height: 72px !important;
+}
+
+.react-tel-input {
+  background: transparent !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace !important;
+  border-width: 1px;
+  border-radius: 0.5rem;
+  outline: none !important;
+  border: none !important;
+  color: white;
+  border-radius: 0.5rem !important;
+}
+.form-control {
+  background: #4b5563 !important;
+  border: 1px solid rgba(209, 213, 219, 0.326) !important;
+  height: 42px !important;
+  border-radius: 0.5rem !important;
+  width: 100% !important;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+}
+.selected-flag {
+  background: #4b5563 !important;
+  outline: none !important;
+  border: none !important;
+  padding: 0 0 0 0px !important;
+  width: 0 !important;
+}
+.open {
+  background: #4b5563 !important;
+}
+.flag-dropdown {
+  background: #4b5563 !important;
+  outline: none !important;
+  border: none !important;
+}
+.country-list {
+  background: #4b5563 !important;
+}
+.country {
+  background: #4b5563 !important;
+}
+.country:hover {
+  background: #374151 !important;
+  color: white;
+}
+.country-name {
+  color: white !important;
+}
+.highlight {
+  background: #4b5563 !important;
+}
+.dial-code {
+  color: #111827 !important;
+}
+
+.flag {
+  left: 10px;
+  top: 50% !important;
+}
+.arrow {
+  border-top: 4px solid white !important;
+}
+.react-datepicker__month-container,
+.react-datepicker__header,
+.react-datepicker__header > div > select,
+.react-datepicker__week,
+.react-datepicker,
+.react-datepicker__current-month,
+.react-datepicker__navigation-icon {
+  background: #4b5563 !important;
+  color: #111827 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+.react-datepicker__input-container > [type="text"] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace !important;
+  background: #4b5563 !important;
+  border: 1px solid rgba(209, 213, 219, 0.326) !important;
+  height: 42px !important;
+  border-radius: 0.5rem !important;
+  width: 100% !important;
+  color: white !important;
+  padding: 10px;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+}
+.react-datepicker-ignore-onclickoutside {
+  color: #4b5563 !important;
 }
