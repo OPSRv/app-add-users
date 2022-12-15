@@ -53,7 +53,7 @@ const Form = ({ user, buttoneText, addUser }) => {
   const usersRef = collection(db, "users");
 
   const uuid_code = editUser.uuid_code ? editUser.uuid_code : uuid();
-
+  console.log("first");
   const createUser = async () => {
     try {
       await setDoc(doc(usersRef, uuid_code), {
