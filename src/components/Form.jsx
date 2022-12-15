@@ -1,5 +1,5 @@
 import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -11,9 +11,8 @@ import useInput from "../hooks/useInput";
 import { Context } from "../index";
 import { upperFirstLetter } from "../utils/upperFirstLetter";
 import DatePickerWrap from "./DatePickerWrap";
-import CropImage from "./UploadImage";
 import UploadImage from "./UploadImage";
-import logo from "../assets/img/logo.png";
+import DeleteUser from "./DeleteUser";
 
 const Form = ({ user, buttoneText, addUser }) => {
   console.log("🚀 ~ file: Form.jsx:18 ~ Form ~ user", user);
@@ -85,15 +84,44 @@ const Form = ({ user, buttoneText, addUser }) => {
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
               {buttoneText}
             </h3>
-            <Link
-              to="/"
-              className="bg-gray-600 h-5 w-5 rounded grid place-content-center p-5 hover:bg-gray-500 "
-            >
-              <Back className="h-4 w-4 mx-1 sm:h-9 text-white" />
-            </Link>
+            <div className="flex gap-4">
+              {user && (
+                <DeleteUser
+                  className="h-4 w-4 mx-1 sm:h-9 text-white cursor-pointer"
+                  uuid_code={user.uuid_code}
+                />
+              )}
+              <Link
+                to="/"
+                className="bg-gray-600 h-5 w-5 rounded grid place-content-center p-5 hover:bg-gray-500 "
+              >
+                <Back className="h-4 w-4 mx-1 sm:h-9 text-white" />
+              </Link>
+            </div>
           </div>
 
           <div className="p-6 space-y-6">
+            <div className=" h-20 rounded-full grid place-items-center">
+              {data && addUser ? (
+                <img
+                  className="w-20 h-20 rounded-full"
+                  src={`${data.img}`}
+                  alt="avatar"
+                />
+              ) : (
+                <span></span>
+              )}
+
+              {!addUser && user ? (
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={`${data.img ? data.img : user.avatar.img}`}
+                  alt="avatar"
+                />
+              ) : (
+                <span></span>
+              )}
+            </div>
             <UploadImage
               file={file}
               setFile={setFile}
@@ -102,25 +130,6 @@ const Form = ({ user, buttoneText, addUser }) => {
               per={per}
               setPerc={setPerc}
             />
-            {data && addUser ? (
-              <img
-                className="w-10 h-10 rounded-full"
-                src={`${data.img}`}
-                alt="avatar"
-              />
-            ) : (
-              <span></span>
-            )}
-
-            {!addUser && user ? (
-              <img
-                className="w-10 h-10 rounded-full"
-                src={`${data.img ? data.img : user.avatar.img}`}
-                alt="avatar"
-              />
-            ) : (
-              <span></span>
-            )}
           </div>
           <div className="p-6 space-y-6">
             <div className="grid grid-cols-6 gap-6">
@@ -135,7 +144,7 @@ const Form = ({ user, buttoneText, addUser }) => {
                   id="first-name"
                   className="input-add-form"
                   placeholder="Bonnie"
-                  required=""
+                  required={true}
                 />
               </div>
               <div className="input-add-user">
@@ -149,7 +158,7 @@ const Form = ({ user, buttoneText, addUser }) => {
                   id="last-name"
                   className="input-add-form"
                   placeholder="Green"
-                  required=""
+                  required={true}
                 />
               </div>
               <div className="input-add-user">
@@ -163,7 +172,7 @@ const Form = ({ user, buttoneText, addUser }) => {
                   id="email"
                   className="input-add-form"
                   placeholder="example@company.com"
-                  required=""
+                  required={true}
                 />
               </div>
               <div className="input-add-user">
