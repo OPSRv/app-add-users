@@ -65,9 +65,6 @@ const UploadImage = ({ file, setFile, data, setData, per, setPerc }) => {
 
   return (
     <>
-      <label className="label-form-add" htmlFor="default_size">
-        Profile picture
-      </label>
       <input
         className="input-add-form"
         id="default_size"

@@ -1,7 +1,6 @@
 export const upperFirstLetter = (word) => {
-  const preWord = word.toUpperCase();
-  const splitted = preWord.split("");
-  const first = splitted[0];
+  const splitted = word.split("");
+  const first = splitted[0].toUpperCase();
   const rest = [...splitted];
   rest.splice(0, 1);
   const result = [first, ...rest].join("");

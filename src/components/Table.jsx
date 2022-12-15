@@ -5,19 +5,9 @@ import uuid from "react-uuid";
 import { ReactComponent as Edit } from "../assets/svg/edit.svg";
 import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 import { thead } from "../utils/thead";
-import Modal from "./Modal";
 import logo from "../assets/img/logo.png";
 
 const Table = ({ sortData, users }) => {
-  let [isOpen, setIsOpen] = useState(false);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
   return (
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-1 rounded-lg relative ">
       <thead className="thead">
@@ -76,20 +66,10 @@ const Table = ({ sortData, users }) => {
               </td>
               <td className="hover:text-violet-900 cursor-pointer">
                 <div className=" inset-0 flex items-center justify-center">
-                  <button type="button" onClick={openModal} className="">
-                    <Link to={user.uuid_code}>
-                      <Edit />
-                    </Link>
-                  </button>
+                  <Link to={user.uuid_code}>
+                    <Edit />
+                  </Link>
                 </div>
-                <Modal
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                  closeModal={closeModal}
-                  openModal={openModal}
-                >
-                  {/* <EditUser email={email} /> */}
-                </Modal>
               </td>
             </tr>
           ))
