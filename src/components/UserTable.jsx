@@ -1,18 +1,16 @@
+import { collection, getDocs, getFirestore, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import firebase from "../firebase";
-import { getFirestore } from "firebase/firestore";
-import { collection, query, where, getDocs } from "firebase/firestore";
-
-import { ReactComponent as ArrowRight } from "../assets/svg/arrowright.svg";
-import { ReactComponent as ArrowLeft } from "../assets/svg/arrowleft.svg";
-
 import Loader from "./Loader";
+import Pagination from "./Pagination";
 import Table from "./Table";
 
 const UserTable = () => {
   const [users, setUsers] = useState([]);
   const [isSorted, setIsSorted] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(5);
 
   const db = getFirestore(firebase);
   const q = query(collection(db, "users")); // where("capital", "==", true)
@@ -24,9 +22,10 @@ const UserTable = () => {
       userData.push(doc.data());
     });
     if (userData) {
-      setIsLoading(false);
+      setLoading(false);
     }
     setUsers(userData);
+    console.log(userData);
   };
 
   const sortData = (id, type) => {
@@ -65,56 +64,35 @@ const UserTable = () => {
     getUsers();
   }, []);
 
-  if (isLoading) {
+  if (loading) {
     return <Loader />;
   }
 
+  const lastUsersIndex = currentPage * usersPerPage;
+  const firstUserIndex = lastUsersIndex - usersPerPage;
+  const currentUser = users.slice(firstUserIndex, lastUsersIndex);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const allPages = Math.ceil(users.length / usersPerPage);
+  const nextPage = () => {
+    if (allPages !== currentPage) setCurrentPage((prev) => prev + 1);
+  };
+  const prevPage = () => {
+    if (currentPage !== 1) setCurrentPage((prev) => prev - 1);
+  };
+
   return (
     <div className="overflow-x-auto relative shadow-md sm:rounded-lg w-[100%] max-w-[1000px] scroll-smooth table-wrapper">
-      <Table sortData={sortData} users={users} />
-      <nav className="nav-pagination" aria-label="Table navigation">
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-          Showing{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
-            1-10
-          </span>{" "}
-          of{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
-            {users.length}
-          </span>
-        </span>
-        <ul className="inline-flex items-center -space-x-px">
-          <li>
-            <span className="pagination-left">
-              <span className="sr-only">Previous</span>
-              <ArrowLeft />
-            </span>
-          </li>
-          <li>
-            <span className="pagination_number">1</span>
-          </li>
-          <li>
-            <span className="pagination_number">2</span>
-          </li>
-          <li>
-            <span aria-current="page" className="pagination_number">
-              3
-            </span>
-          </li>
-          <li>
-            <span className="pagination_number">...</span>
-          </li>
-          <li>
-            <span className="pagination_number">100</span>
-          </li>
-          <li>
-            <span className="pagination-right">
-              <span className="sr-only">Next</span>
-              <ArrowRight />
-            </span>
-          </li>
-        </ul>
-      </nav>
+      <Table sortData={sortData} users={currentUser} />
+      <Pagination
+        usersPerPage={usersPerPage}
+        totalUsers={users.length}
+        paginate={paginate}
+        nextPage={nextPage}
+        prevPage={prevPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

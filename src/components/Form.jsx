@@ -1,45 +1,48 @@
-import { collection, doc, setDoc, getFirestore } from "firebase/firestore";
-import { useContext, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import PhoneInput from "react-phone-input-2";
+import { useState } from "react";
 import "react-phone-input-2/lib/style.css";
-import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
 import useInput from "../hooks/useInput";
-import { Context } from "../index";
 import { upperFirstLetter } from "../utils/upperFirstLetter";
 import DatePickerWrap from "./DatePickerWrap";
-import uuid from "react-uuid";
+import Loader from "./Loader";
+import { collection, doc, setDoc, getFirestore } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import PhoneInput from "react-phone-input-2";
 
-const AddUserForm = () => {
-  const { auth } = useContext(Context);
-  const [user] = useAuthState(auth);
+const Form = ({ user, buttoneText }) => {
   const navigate = useNavigate();
-
-  const [phone, setPhone] = useState("");
+  const [editUser, setEditUser] = useState({
+    uid: "",
+    uuid_code: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    dateOfBirth: "",
+    phoneNumber: "",
+  });
+  const [phone, setPhone] = useState(editUser.phoneNumber);
   const [startDate, setStartDate] = useState(new Date());
-  const firstName = useInput("");
-  const lastName = useInput("");
-  const email = useInput("");
-  const phoneNumber = phone;
+  console.log(phone);
+  console.log();
+  const firstName = useInput(editUser.firstName);
+  const lastName = useInput(editUser.lastName);
+  const email = useInput(editUser.email);
   const dateOfBirth = startDate;
 
   const db = getFirestore(firebase);
 
   const usersRef = collection(db, "users");
 
-  const uuid_code = uuid();
-
   const createUser = async () => {
     try {
-      await setDoc(doc(usersRef, uuid_code), {
-        uid: user.uid,
-        uuid_code: uuid_code,
+      await setDoc(doc(usersRef, editUser.uuid_code), {
+        uid: editUser.uid,
+        uuid_code: editUser.uuid_code,
         firstName: upperFirstLetter(firstName.value.toLowerCase()),
         lastName: upperFirstLetter(lastName.value.toLowerCase()),
         email: email.value.toLowerCase(),
         dateOfBirth: dateOfBirth,
-        phoneNumber: phoneNumber.phone,
+        phoneNumber: phone,
       });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -48,6 +51,9 @@ const AddUserForm = () => {
     }
   };
 
+  if (!user) {
+    return <Loader />;
+  }
   return (
     <div className="grid place-items-center mt-10">
       <div
@@ -59,7 +65,7 @@ const AddUserForm = () => {
         <div className="relative w-full h-full md:h-auto">
           <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-              Add user
+              {buttoneText}
             </h3>
           </div>
           <div className="p-6 space-y-6">
@@ -120,8 +126,9 @@ const AddUserForm = () => {
                   onlyCountries={["ua"]}
                   country={"ua"}
                   masks={{ ua: "(..)...-..-.." }}
-                  onChange={(phone) => setPhone({ phone })}
+                  onChange={(phone) => setPhone(phone)}
                   placeholder={"+380(96)123-45-56"}
+                  value={editUser.phoneNumber}
                 />
               </div>
               <DatePickerWrap
@@ -132,7 +139,7 @@ const AddUserForm = () => {
           </div>
           <div className="flex items-center justify-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
             <button type="submit" className="btn" onClick={createUser}>
-              Create user
+              {buttoneText}
             </button>
           </div>
         </div>
@@ -141,4 +148,4 @@ const AddUserForm = () => {
   );
 };
 
-export default AddUserForm;
+export default Form;

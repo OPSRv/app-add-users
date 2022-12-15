@@ -34,6 +34,13 @@ body {
   }
 }
 
+.input-add-user {
+  @apply col-span-6 sm:col-span-3;
+}
+
+.user-wrapper {
+  @apply overflow-x-auto relative shadow-md sm:rounded-lg w-[100%] max-w-[1000px] scroll-smooth;
+}
 .btn-login {
   @apply inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-violet-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-900 focus-visible:ring-offset-2;
 }
@@ -60,7 +67,7 @@ body {
 }
 
 .nav-pagination {
-  @apply flex justify-between items-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 p-5 w-full;
+  @apply flex justify-between items-center bg-white border-b dark:bg-gray-800 dark:border-gray-700  p-5 w-full;
 }
 
 .pagination-right {
@@ -82,14 +89,13 @@ body {
 .menu-items {
   @apply absolute right-0 mt-3 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
 }
-.table {
-  @apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
-}
+
 .thead {
   @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
 }
 .tbody-tr {
   @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600;
+  min-height: 72px !important;
 }
 
 .react-tel-input {
