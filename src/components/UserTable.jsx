@@ -25,15 +25,11 @@ const UserTable = () => {
       setLoading(false);
     }
     setUsers(userData);
-    console.log(userData);
   };
 
   const sortData = (id, type) => {
     const copyData = [...users];
-    console.log(copyData[0][id]);
     let compare;
-
-    console.log("type - ", type);
 
     switch (type) {
       case "number":

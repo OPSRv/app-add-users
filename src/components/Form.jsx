@@ -15,7 +15,6 @@ import UploadImage from "./UploadImage";
 import DeleteUser from "./DeleteUser";
 
 const Form = ({ user, buttoneText, addUser }) => {
-  console.log("🚀 ~ file: Form.jsx:18 ~ Form ~ user", user);
   const [file, setFile] = useState("");
   const [data, setData] = useState("");
   const [per, setPerc] = useState(null);
@@ -52,7 +51,6 @@ const Form = ({ user, buttoneText, addUser }) => {
   const usersRef = collection(db, "users");
 
   const uuid_code = editUser.uuid_code ? editUser.uuid_code : uuid();
-  console.log("first");
   const createUser = async () => {
     try {
       await setDoc(doc(usersRef, uuid_code), {
