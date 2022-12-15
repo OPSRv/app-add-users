@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   let activeStyle = {
@@ -12,22 +12,12 @@ const Navigation = () => {
   let activeClassName = "underline";
 
   return (
-    <div className="flex gap-4 items-center pr-4 text-white">
-      <div className="btn-navigation">
-        <NavLink
-          to="users"
-          className={({ isActive }) => (isActive ? activeClassName : noActive)}
-        >
-          Users
-        </NavLink>
+    <div className="flex gap-4 items-center pr-4 text-white text-center sm:text-left">
+      <div className="btn-navigation ">
+        <Link to="users">Users</Link>
       </div>
       <div className="btn-navigation">
-        <NavLink
-          to="add-user"
-          style={({ isActive }) => (isActive ? activeStyle : noActive)}
-        >
-          Add user
-        </NavLink>
+        <Link to="add-user">Add user</Link>
       </div>
     </div>
   );
